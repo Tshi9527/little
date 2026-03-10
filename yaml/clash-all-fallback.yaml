@@ -114,7 +114,7 @@ default: &default
 proxy-groups:
 
   # 业务分流组
-  - {name: Ai, <<: *default}
+  - {name: AI, <<: *default}
   - {name: GitHub, <<: *default}
   - {name: 社交APP, <<: *default}
   - {name: Steam, <<: *default}
@@ -317,12 +317,12 @@ rules:
 
   - RULE-SET,TEST / Domain,Test
   - RULE-SET,Block / Domain,Block  
-  - RULE-SET,ChatGPT / Domain,Ai
-  - RULE-SET,Claude / Domain,Ai
-  - RULE-SET,Meta AI / Domain,Ai
-  - RULE-SET,Perplexity / Domain,Ai
-  - RULE-SET,Copilot / Domain,Ai
-  - RULE-SET,Gemini / Domain,Ai
+  - RULE-SET,ChatGPT / Domain,AI
+  - RULE-SET,Claude / Domain,AI
+  - RULE-SET,Meta AI / Domain,AI
+  - RULE-SET,Perplexity / Domain,AI
+  - RULE-SET,Copilot / Domain,AI
+  - RULE-SET,Gemini / Domain,AI
   - RULE-SET,GitHub / Domain,GitHub
   - RULE-SET,Telegram / Domain,社交APP
   - RULE-SET,Telegram / IP,社交APP,no-resolve
@@ -421,5 +421,6 @@ rule-providers:
   Google / Domain: {<<: *domain, url: "https://raw.githubusercontent.com/metacubex/meta-rules-dat/meta/geo/geosite/google.mrs"}
   Google / IP: {<<: *ip, url: "https://raw.githubusercontent.com/metacubex/meta-rules-dat/meta/geo/geoip/google.mrs"}
 # GateFireWall / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gfw.mrs"}
+
 
 
