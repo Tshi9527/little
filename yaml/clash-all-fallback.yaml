@@ -109,7 +109,7 @@ ipv6: true
 # ========================
 tun:
   enable: true
-  stack: system
+  stack: gvisor
   endpoint-independent-nat: true
   auto-route: true
   auto-detect-interface: true
