@@ -8,7 +8,9 @@ proxy-providers:
 
   机场名称:
 
-    url: "机场订阅地址"  
+    url: ""  
+    exclude: "流量|套餐|到期|剩余|重置|官网|网站|最新网址|防失联|失联|官网地址|公告|通知|TG|Telegram|电报|群|频道|说明|使用说明|QQ群|客服|工单|订阅|Expire|Traffic|Reset|Remaining|Expire|Official|Website"
+    filter: "^(?!.*(流量|套餐|到期|剩余|官网|TG|群|订阅|距离)).*"
     type: http
     interval: 86400
     health-check:
@@ -19,7 +21,9 @@ proxy-providers:
   
   机场名称:
 
-    url: "机场订阅地址"  
+    url: ""
+    exclude: "流量|套餐|到期|剩余|重置|官网|网站|最新网址|防失联|失联|官网地址|公告|通知|TG|Telegram|电报|群|频道|说明|使用说明|QQ群|客服|工单|订阅|Expire|Traffic|Reset|Remaining|Expire|Official|Website"
+    filter: "^(?!.*(流量|套餐|到期|剩余|官网|TG|群|订阅|距离)).*"
     type: http
     interval: 86400
     health-check:
@@ -30,7 +34,9 @@ proxy-providers:
   
   机场名称:
 
-    url: "机场订阅地址"  
+    url: ""
+    exclude: "流量|套餐|到期|剩余|重置|官网|网站|最新网址|防失联|失联|官网地址|公告|通知|TG|Telegram|电报|群|频道|说明|使用说明|QQ群|客服|工单|订阅|Expire|Traffic|Reset|Remaining|Expire|Official|Website"
+    filter: "^(?!.*(流量|套餐|到期|剩余|官网|TG|群|订阅|距离)).*"
     type: http
     interval: 86400
     health-check:
@@ -70,14 +76,14 @@ dns:
   listen: 0.0.0.0:7874
   ipv6: true
   enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
+  fake-ip-range: 198.20.0.1/16
   nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
+    - 202.96.69.38
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
     - +.lan
     - +.local
+    - 192.168.0.0/16
     - geosite:cn
 # mitce    
     - +.mitce.net
@@ -122,6 +128,7 @@ default: &default
   default: 所有-自动
   proxies:
     - 直连
+    - 所有-故转
     - 所有-手动
     - 所有-自动
     - 香港-故转
@@ -144,6 +151,8 @@ proxy-groups:
   - {name: Epic, <<: *default}
   - {name: EA, <<: *default}
   - {name: Game, <<: *default}
+  - {name: PlayStation, <<: *default}
+  - {name: Nintendo, <<: *default}
   - {name: YouTube, <<: *default}
   - {name: TikTok, <<: *default}
   - {name: Disney, <<: *default}
@@ -161,6 +170,14 @@ proxy-groups:
   - {name: 国内, <<: *default}
   - {name: 其他, <<: *default}
 
+  - name: 所有-故转
+    type: fallback
+    interval: 60
+    lazy: false
+    proxies:
+      - 所有-手动
+      - 所有-自动
+      
   - name: 所有-手动
     type: select
     include-all: true
@@ -176,7 +193,7 @@ proxy-groups:
   # 香港组
   - name: 香港-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 香港-手动
@@ -197,7 +214,7 @@ proxy-groups:
   # 台湾组
   - name: 台湾-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 台湾-手动
@@ -216,7 +233,7 @@ proxy-groups:
   # 日本组
   - name: 日本-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 日本-手动
@@ -235,7 +252,7 @@ proxy-groups:
   # 新加坡组
   - name: 新加坡-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 新加坡-手动
@@ -254,7 +271,7 @@ proxy-groups:
   # 韩国组
   - name: 韩国-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 韩国-手动
@@ -273,7 +290,7 @@ proxy-groups:
   # 美国组
   - name: 美国-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 美国-手动
@@ -292,7 +309,7 @@ proxy-groups:
   # 印度组
   - name: 印度-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 印度-手动
@@ -311,7 +328,7 @@ proxy-groups:
   # 其他组
   - name: 其他-故转
     type: fallback
-    interval: 300
+    interval: 60
     lazy: false
     proxies:
       - 其他-手动
@@ -367,12 +384,12 @@ rules:
   - RULE-SET,EA / Domain,EA
   - RULE-SET,Blizzard / Domain,Game
   - RULE-SET,UBI / Domain,Game
-  - RULE-SET,PlayStation / Domain,Game
-  - RULE-SET,Nintendo / Domain,Game
+  - RULE-SET,PlayStation / Domain,PlayStation
+  - RULE-SET,Nintendo / Domain,Nintendo
   - RULE-SET,Google / Domain,Google
   - RULE-SET,Google / IP,Google,no-resolve
   - RULE-SET,Proxy / Domain,国外
-  - RULE-SET,Globe / Domain,国外
+  - RULE-SET,Global / Domain,国外
   - RULE-SET,Nvidia / Domain,国外
   - RULE-SET,Direct / Domain,国内
   - RULE-SET,China / Domain,国内
@@ -423,7 +440,7 @@ rule-providers:
   PlayStation / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/PlayStation/PlayStation.list"}
   Nintendo / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.list"}
   Proxy / Domain: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Proxy.list"}
-  Globe / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list"}
+  Global / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list"}
   Direct / Domain: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Direct.list"}
   China / Domain: {<<: *domain, url: "https://raw.githubusercontent.com/metacubex/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs"}
   China / IP: {<<: *ip, url: "https://raw.githubusercontent.com/metacubex/meta-rules-dat/refs/heads/meta/geo/geoip/cn.mrs"}
